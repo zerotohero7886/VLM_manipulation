@@ -61,3 +61,4 @@ coverage/
 
 # Profiling data
 .prof
+torch-1.7.1+cu110-cp36-cp36m-linux_x86_64.whl
