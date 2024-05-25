@@ -17,7 +17,17 @@ class GroundingDINO:
     def load_image_from_url(self, image_url):
         return Image.open(requests.get(image_url, stream=True).raw)
 
-    def detect_objects(self, image, text, box_threshold=0.4, text_threshold=0.3):
+    def detect_objects(
+        self,
+        image,
+        text,
+        box_threshold=0.4,
+        text_threshold=0.3,
+        clean_output: bool = True,
+    ):
+        if isinstance(image, str):
+            image = Image.open(image).convert("RGB")
+
         inputs = self.processor(images=image, text=text, return_tensors="pt").to(
             self.device
         )
@@ -31,6 +41,16 @@ class GroundingDINO:
             text_threshold=text_threshold,
             target_sizes=[image.size[::-1]],
         )
+
+        if clean_output:
+            results = [
+                {
+                    "labels": result["labels"],
+                    "boxes": result["boxes"].detach().cpu().tolist(),
+                    "scores": result["scores"].detach().cpu().tolist(),
+                }
+                for result in results
+            ]
 
         return results
 
