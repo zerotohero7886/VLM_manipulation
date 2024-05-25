@@ -4,11 +4,17 @@ import base64
 from typing import List, Optional, Literal, Any
 from io import BytesIO
 import torch
+import warnings
+
+warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 
 import openai
 import instructor
 from PIL import Image
 from pydantic import BaseModel, Field
+from rich import print
+from rich.console import Console
+from rich.text import Text
 
 from gdino_module.gdino import GroundingDINO
 from mllm_module.gpt import gpt4v_completion_async, gpt4v_completion
@@ -17,11 +23,13 @@ from prompts import AGENT_SYSTEM_PROMPT
 
 
 class QueryToDetectionModel(BaseModel):
+    reasoning: Optional[str] = Field(
+        None, description="Detailed reasoning for the detection queries."
+    )
     queries: str
-    reasoning: str
 
     def to_prompt(self):
-        prompt = f"queries: {self.queries}\reasoning: {self.reasoning}"
+        prompt = f"queries: {self.queries}\nreasoning: {self.reasoning}"
         return prompt
 
 
@@ -63,7 +71,7 @@ class RobotAction(BaseModel):
 
 class Agent:
     def __init__(self, gpt_model_name="gpt-4o"):
-
+        self.console = Console()
         self.gpt_model_name = gpt_model_name
         self.gdino = GroundingDINO()
 
@@ -75,7 +83,7 @@ class Agent:
             ]
         )
 
-    def run(self, image_path: str, instruction: str):
+    def run(self, image_path: str, instruction: str, VERBOSE: bool = False):
         ########################################
         # step1 : Generate Query for Detection #
         ########################################
@@ -92,23 +100,32 @@ class Agent:
             Message(role="assistant", text=detection_queries.to_prompt())
         )
 
-        print(detection_queries)
+        if VERBOSE:
+            self.console.print("\n########################")
+            self.console.print("#  [bold red]Detection Queries[/bold red]   #")
+            self.console.print("########################")
+            self.console.print(f"[cyan]Instruction:[/cyan] {instruction}")
+            self.console.print(detection_queries)
+
         #################################
         # step2 : Detection using GDINO #
         #################################
-
         _detection_output = self.gdino.detect_objects(
             image_path, detection_queries.queries
         )[0]
         detection_output: DetectionOutput = DetectionOutput(**_detection_output)
 
-        print(detection_output.to_prompt())
         self.conversation.messages.append(
             Message(
                 role="user",
                 text=f"Here are detection outputs : {detection_output.to_prompt()}\nGenerate the robot action for this image",
             )
         )
+        if VERBOSE:
+            self.console.print("\n########################")
+            self.console.print("#   [bold red]Detection Output[/bold red]   #")
+            self.console.print("########################")
+            self.console.print(detection_output)
 
         ##################################
         # step3 : Robotic Action Calling #
@@ -119,10 +136,12 @@ class Agent:
             model=self.gpt_model_name,
             response_model=RobotAction,
         )
-        print("##################################")
-        print("# step3 : Robotic Action Calling #")
-        print("##################################")
-        print(robot_action)
+
+        if VERBOSE:
+            self.console.print("\n########################")
+            self.console.print("# [bold red]Final Robotic Action[/bold red] #")
+            self.console.print("########################")
+            self.console.print(robot_action)
 
         # return response
 
@@ -134,5 +153,4 @@ if __name__ == "__main__":
     image_path = "../data/images/table0.png"  # 예제 이미지 경로
     instruction = "Pick up the apple and place next to the lemon"
 
-    response = agent.run(image_path, instruction)
-    print(response)
+    response = agent.run(image_path, instruction, VERBOSE=True)
