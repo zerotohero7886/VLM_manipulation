@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "vlm-manipulation"
+version = "0.1.0"
+description = "Manipulation in the simulation and realworld environment. GPT4 and G-DINO based reasoning is utilized for commonsense image reasoning."
+authors = ["SeungyounShin <ssy10011218@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^1.30.3"
+pillow = "^10.3.0"
+termcolor = "^2.4.0"
+prettytable = "^3.10.0"
+rich = "^13.7.1"
+transformers = "^4.41.1"
+torch = {version = "2.0.0", source = "pytorch"}
+torchvision = {version = "0.15.0", source = "pytorch"}
+torchaudio = {version = "2.0.0", source = "pytorch"}
+instructor = "^1.3.1"
+pydantic = "^2.7.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+pytest-asyncio = "^0.23.7"
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu117"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
