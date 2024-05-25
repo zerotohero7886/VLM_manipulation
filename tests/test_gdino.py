@@ -67,7 +67,7 @@ class TestGroundingDINO(unittest.TestCase):
         image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
         image = self.gdino.load_image_from_url(image_url)
         text = "a cat. a remote control."
-        results = self.gdino.detect_objects(image, text)
+        results = self.gdino.detect_objects(image, text, clean_output=False)
         self.assertTrue(len(results) > 0)
 
     def test_local_image_with_bboxes(self):
@@ -82,7 +82,7 @@ class TestGroundingDINO(unittest.TestCase):
             image = Image.open(image_path).convert("RGB")
             text = test_image["text"]
 
-            results = self.gdino.detect_objects(image, text)
+            results = self.gdino.detect_objects(image, text, clean_output=False)
             boxes = results[0]["boxes"]
             labels = results[0]["labels"]
             scores = results[0]["scores"]
