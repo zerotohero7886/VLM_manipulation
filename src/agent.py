@@ -24,7 +24,7 @@ from prompts import AGENT_SYSTEM_PROMPT
 
 class QueryToDetectionModel(BaseModel):
     reasoning: Optional[str] = Field(
-        None, description="Detailed reasoning for the detection queries."
+        None, description="Detailed step-by-step reasoning for the detection queries."
     )
     queries: str
 
@@ -46,7 +46,7 @@ class DetectionOutput(BaseModel):
 
 class RobotAction(BaseModel):
     rationale: Optional[str] = Field(
-        None, description="Detailed reasoning for the action to achieve the goal."
+        None, description="Detailed step-by-step reasoning for the action to achieve the goal."
     )
     action: Literal["Pick", "Place"]
     param: Any = Field(
