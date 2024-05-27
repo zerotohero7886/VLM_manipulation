@@ -27,7 +27,7 @@ class TestGroundingDINO(unittest.TestCase):
                 "image_id": "table0.png",
                 "expected_labels": ["an apple"],
                 "expected_boxes": torch.tensor(
-                    [[871.3726, 606.1895, 1021.9732, 763.6394]], device="cuda:0"
+                    [[871.3726, 606.1895, 1021.9732, 763.6394]], device="cpu"
                 ),
                 "text": "an apple. a orange",
             },
@@ -40,7 +40,7 @@ class TestGroundingDINO(unittest.TestCase):
                         [1335.8514, 363.2420, 1594.6263, 782.9238],
                         [884.4767, 498.0680, 1114.0472, 798.0426],
                     ],
-                    device="cuda:0",
+                    device="cpu",
                 ),
                 "text": "a box of Oreo. a can of Monster. a can of Pringles",
             },
@@ -52,7 +52,7 @@ class TestGroundingDINO(unittest.TestCase):
                         [922.7785, 976.9618, 1118.4335, 1346.5343],
                         [169.4472, 873.1445, 402.1467, 1318.3616],
                     ],
-                    device="cuda:0",
+                    device="cpu",
                 ),
                 "text": "a Red Bull can. a can of Pringles. a lemon",
             },
