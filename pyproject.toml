@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "vlm-manipulation"
 version = "0.1.0"
-description = "Manipulation in the simulation and realworld environment. GPT4 and G-DINO based reasoning is utilized for commonsense image reasoning."
-authors = ["SeungyounShin <ssy10011218@gmail.com>"]
+description = "Manipulation in the simulation and real-world environment. GPT-4 and G-DINO based reasoning is utilized for commonsense image reasoning."
+authors = ["SeungyounShin <ssy10011218@gmail.com>", "Hyeonseong Kim <hyeonseong-kim@korea.ac.kr>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
