@@ -8,8 +8,8 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-from gdino_module.gdino import GroundingDINO
-from gdino_module.utils import calculate_iou
+from detection_module.gdino import GroundingDINO
+from detection_module.utils import calculate_iou
 
 
 class TestGroundingDINO(unittest.TestCase):

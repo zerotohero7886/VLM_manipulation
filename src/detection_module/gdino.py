@@ -5,7 +5,7 @@ from transformers import AutoProcessor, AutoModelForZeroShotObjectDetection
 
 
 class GroundingDINO:
-    def __init__(self, model_id="IDEA-Research/grounding-dino-tiny", device=None):
+    def __init__(self, model_id="IDEA-Research/grounding-dino-base", device=None):
         self.device = (
             device if device else ("cuda" if torch.cuda.is_available() else "cpu")
         )
@@ -23,7 +23,7 @@ class GroundingDINO:
         text,
         box_threshold=0.4,
         text_threshold=0.3,
-        clean_output: bool = True,
+        clean_output: bool = False,
     ):
         if isinstance(image, str):
             image = Image.open(image).convert("RGB")
