@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from PIL import Image
 from typing import List
+import torch
 
 
 def calculate_iou(box1, box2):
@@ -21,6 +22,59 @@ def calculate_iou(box1, box2):
     iou = intersection_area / union_area
 
     return iou
+
+def class_agnostic_nms_single_image(detection_result, iou_threshold=0.5):
+    """
+    Perform class-agnostic non-maximum suppression (NMS) on a single image's detection results.
+    
+    Args:
+        detection_result (dict): A dictionary containing 'scores', 'labels', and 'boxes'.
+        iou_threshold (float): IoU threshold for NMS.
+    
+    Returns:
+        dict: Filtered detection results with 'scores', 'labels', and 'boxes'.
+    """
+    scores = detection_result['scores']
+    boxes = detection_result['boxes']
+    labels = detection_result['labels']
+
+    # Sort indices by scores in descending order
+    indices = scores.argsort(descending=True)
+    keep = []
+
+    while indices.numel() > 0:
+        idx = indices[0].item()
+        keep.append(idx)
+
+        if indices.numel() == 1:
+            break
+
+        ious = torch.tensor([calculate_iou(boxes[idx].tolist(), boxes[i].tolist()) for i in indices[1:]])
+
+        indices = indices[1:][ious <= iou_threshold]
+
+    filtered_boxes = boxes[keep]
+    filtered_scores = scores[keep]
+    filtered_labels = labels[keep]
+
+    return {
+        'scores': filtered_scores,
+        'labels': filtered_labels,
+        'boxes': filtered_boxes
+    }
+
+def class_agnostic_nms(detection_results, iou_threshold=0.5):
+    """
+    Perform class-agnostic non-maximum suppression (NMS) on detection results for multiple images.
+    
+    Args:
+        detection_results (List[Dict]): A list of dictionaries, each containing 'scores', 'labels', and 'boxes'.
+        iou_threshold (float): IoU threshold for NMS.
+    
+    Returns:
+        List[Dict]: Filtered detection results for each image.
+    """
+    return [class_agnostic_nms_single_image(result, iou_threshold) for result in detection_results]
 
 
 def show_images(

@@ -6,6 +6,25 @@ import PIL
 from typing import List, Dict, Optional, Union
 
 
+def resize_image(image: Image.Image, size: int = 512) -> Image.Image:
+    # Determine the new size maintaining aspect ratio
+    if image.width > image.height:
+        new_width = size
+        new_height = int(size * image.height / image.width)
+    else:
+        new_height = size
+        new_width = int(size * image.width / image.height)
+
+    # Resize the image
+    resized_image = image.resize((new_width, new_height))
+    resized_image = resized_image.convert("RGB")
+    return resized_image
+
+def image_to_base64(image: Image.Image, format: str = "JPEG") -> str:
+    buffered = io.BytesIO()
+    image.save(buffered, format=format)
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
 @dataclass
 class Message:
     role: str
@@ -44,16 +63,18 @@ class Message:
         """Encodes the image at the given path to base64. Compresses the image if it's larger than 20 MB."""
 
         if isinstance(image_path, PIL.Image.Image):
-            # resize to 500 x 500
-            image_path = image_path.resize((500, 500))
-            return base64.b64encode(image_path.tobytes()).decode("utf-8")
+            image_path = image_path.convert("RGB")
+            # resize longest axis to 512
+            image_path = resize_image(image_path, 512)
+            base64_image = image_to_base64(image_path, format="JPEG")
+            return base64_image
 
         initial_size = os.path.getsize(image_path)
 
-        if initial_size > 20 * 1024 * 1024:
+        if initial_size > 20 * 1024 * 1024 - 5:  # - 5 for margin
             with Image.open(image_path) as img:
-                # Resize the image to 500x500 pixels
-                img_resized = img.resize((500, 500))
+                # Resize the image longest axis to 344
+                img_resized = resize_image(image_path, 344)
 
                 # Save the resized image to a buffer
                 buffer = io.BytesIO()

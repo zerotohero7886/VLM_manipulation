@@ -32,6 +32,8 @@ class Owlv2:
             target_sizes=torch.Tensor([image.size[::-1]]),
             threshold=box_threshold,
         )
+        # NOTE : https://github.com/huggingface/transformers/blob/573565e35a5cc68f6cfb6337f5a93753ab16c65b/src/transformers/models/owlv2/image_processing_owlv2.py#L484
+        # I guess post_process_object_detection has no nms (non-maximum suppression) and it returns all the boxes.
 
         if clean_output:
             results = [
