@@ -1,0 +1,19 @@
+<mujoco model="ycb-orange">
+  <asset>
+    <texture type="2d" name="ycb-orange" file="ycb-orange.png"/>
+    <material name="ycb-orange_mat" texture="ycb-orange" specular="0.5" shininess="0.5"/>
+    <mesh file="ycb-orange.obj"/>
+    <mesh file="ycb-orange_collision_0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="ycb-orange" pos="0.70 0.15 0.75">
+      <freejoint/>
+      <geom material="ycb-orange_mat" mesh="ycb-orange" class="visual"/>
+      <geom type="box" pos="-0.008 -.020 0.003" size="0.033 0.033 0.003" class="collision"/>
+      <geom name="ycb-orange_geom" type="box" euler="0 0 0" pos="-.008 -.020 0.033" size="0.033 0.033 0.033" class="collision"/>
+      <!-- <geom mesh="ycb-orange_collision_0" class="collision"/> -->
+      <!-- <geom type="box" size="0.035 0.035 0.03" pos="-0.01 -0.0175 0.035" rgba="1.0 0.0 0.0 .0"/> -->
+    </body>
+
+  </worldbody>
+</mujoco>
