@@ -48,13 +48,14 @@ class Owlv2:
         return results
 
     def draw_boxes(self, image, boxes, labels=None):
-        max_axis = max(image.size)
-        draw = ImageDraw.Draw(image)
+        img_copy = image.copy()
+        max_axis = max(img_copy.size)
+        draw = ImageDraw.Draw(img_copy)
         font = ImageFont.load_default(size=max_axis // 50)
 
         for i, box in enumerate(boxes):
             draw.rectangle(box.tolist(), outline="red", width=2)
-            if labels:
+            if labels is not None:
                 label_text = labels[i]
                 label_size = draw.textbbox((0, 0), label_text, font=font)
                 label_background = [
@@ -71,4 +72,4 @@ class Owlv2:
                     font=font,
                 )
 
-        return image
+        return img_copy
