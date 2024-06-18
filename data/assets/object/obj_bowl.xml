@@ -1,0 +1,76 @@
+<mujoco model="obj_bowl">
+  <default>
+    <default class="bowl_visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="bowl_collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="obj_bowl_material" specular="0.5" shininess="0.5"/>
+    <mesh file="obj_bowl.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_0.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_1.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_2.obj" scale="0.8 0.8 1.225"/> <!-- height of the bowl -->
+    <mesh file="obj_bowl_collision_3.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_4.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_5.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_6.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_7.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_8.obj" scale="0.8 0.8 0.8"/>
+    <mesh file="obj_bowl_collision_9.obj" scale="0.8 0.8 0.8"/>
+  </asset>
+  <worldbody>
+    <body name="obj_bowl_red" pos="0 0 1.0">
+      <joint name="obj_bowl_red_joint" type="free"/>
+      <geom material="obj_bowl_material" mesh="obj_bowl" class="bowl_visual" rgba="0.80 0.2 0.2 1"/>
+      <geom mesh="obj_bowl_collision_0" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_1" class="bowl_collision"/>
+      <!-- <geom mesh="obj_bowl_collision_2" class="bowl_collision"/> -->
+      <geom fromto="0.0 0.0 0.015  0.0 0.0 0.0" size="0.055"
+            density="500" friction="1 0.005 0.0001" type="cylinder" rgba="1 0.64 0.64 0" />
+      <geom mesh="obj_bowl_collision_3" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_4" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_5" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_6" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_7" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_8" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_9" class="bowl_collision"/>
+    </body>
+
+    <body name="obj_bowl_blue" pos="0 0.2 1.0">
+      <joint name="obj_bowl_blue_joint" type="free"/>
+      <geom material="obj_bowl_material" mesh="obj_bowl" class="bowl_visual" rgba="0.15 0.45 0.80 1"/>
+      <geom mesh="obj_bowl_collision_0" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_1" class="bowl_collision"/>
+      <!-- <geom mesh="obj_bowl_collision_2" class="bowl_collision"/> -->
+      <geom fromto="0.0 0.0 0.015  0.0 0.0 0.0" size="0.055"
+            density="500" friction="1 0.005 0.0001" type="cylinder" rgba="1 0.64 0.64 0" />
+      <geom mesh="obj_bowl_collision_3" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_4" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_5" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_6" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_7" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_8" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_9" class="bowl_collision"/>
+    </body>
+
+    <body name="obj_bowl_green" pos="0 -0.2 1.0">
+      <joint name="obj_bowl_green_joint" type="free"/>
+      <geom material="obj_bowl_material" mesh="obj_bowl" class="bowl_visual" rgba="0.2 0.80 0.2 1"/>
+      <geom mesh="obj_bowl_collision_0" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_1" class="bowl_collision"/>
+      <!-- <geom mesh="obj_bowl_collision_2" class="bowl_collision"/> -->
+      <geom fromto="0.0 0.0 0.015  0.0 0.0 0.0" size="0.055"
+            density="500" friction="1 0.005 0.0001" type="cylinder" rgba="1 0.64 0.64 0" />
+      <geom mesh="obj_bowl_collision_3" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_4" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_5" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_6" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_7" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_8" class="bowl_collision"/>
+      <geom mesh="obj_bowl_collision_9" class="bowl_collision"/>
+    </body>
+  </worldbody>
+</mujoco>

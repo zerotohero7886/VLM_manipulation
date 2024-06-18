@@ -16,7 +16,7 @@ from rich import print
 from rich.console import Console
 from rich.text import Text
 
-from gdino_module.gdino import GroundingDINO
+from detection_module.gdino import GroundingDINO
 from mllm_module.gpt import gpt4v_completion_async, gpt4v_completion
 from mllm_module.conversation import ImageTextConversation, Message
 from prompts import AGENT_SYSTEM_PROMPT
@@ -46,7 +46,8 @@ class DetectionOutput(BaseModel):
 
 class RobotAction(BaseModel):
     rationale: Optional[str] = Field(
-        None, description="Detailed step-by-step reasoning for the action to achieve the goal."
+        None,
+        description="Detailed step-by-step reasoning for the action to achieve the goal.",
     )
     action: Literal["Pick", "Place"]
     param: Any = Field(

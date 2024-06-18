@@ -1,0 +1,57 @@
+<mujocoinclude>
+
+    <worldbody>
+        <!-- Box objects -->
+        <body name="obj_box_red_01" pos="0.0 0.1 0.0">
+            <joint type="free" />
+            <geom name="obj_box_red_01" fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="1 0 0.16 1" />
+        </body>
+        <!-- <body name="obj_box_red_02" pos="0.0 0.2 0.0">
+            <joint type="free" />
+            <geom name="obj_box_red_02" fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="1 0 0.16 1" />
+        </body> -->
+        <body name="obj_box_green_01" pos="0.0 0.3 0.0">
+            <joint type="free" />
+            <geom name="obj_box_green_01" fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.36 1 0 1" />
+        </body>
+        <!-- <body name="obj_box_green_02" pos="0.0 0.4 0.0">
+            <joint type="free" />
+            <geom name="obj_box_green_02" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.36 1 0 1" />
+        </body> -->
+        <body name="obj_box_blue_01" pos="0.0 0.5 0.0">
+            <joint type="free" />
+            <geom name="obj_box_blue_01" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0 0.56 1 1" />
+        </body>
+        <!-- <body name="obj_box_blue_02" pos="0.0 0.6 0.0">
+            <joint type="free" />
+            <geom name="obj_box_blue_02" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0 0.56 1 1" />
+        </body> -->
+
+        <!-- Cylinder objects -->
+        <body name="obj_cylinder_red_01" pos="0.0 -0.1 0.0">
+            <joint type="free" />
+            <geom name="obj_cylinder_red_01_geom" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.025"
+                density="500" friction="1 0.005 0.0001" type="cylinder" rgba="1 0 0.16 1" />
+        </body>
+
+        <body name="obj_cylinder_green_01" pos="0.0 -0.2 0.0">
+            <joint type="free" />
+            <geom name="obj_cylinder_green_01_geom" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.025"
+                density="500" friction="1 0.005 0.0001" type="cylinder" rgba="0.36 1 0 1" />
+        </body>
+
+        <body name="obj_cylinder_blue_01" pos="0.0 -0.3 0.0">
+            <joint type="free" />
+            <geom name="obj_cylinder_blue_01_geom" fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.025"
+                density="500" friction="1 0.005 0.0001" type="cylinder" rgba="0 0.56 1 1" />
+        </body>
+
+    </worldbody>
+
+</mujocoinclude>
